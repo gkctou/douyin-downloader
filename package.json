@@ -1,6 +1,6 @@
 {
   "name": "douyin-downloader",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "description": "抖音影片解析與下載套件",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,8 +9,7 @@
   },
   "scripts": {
     "build": "tsc && chmod +x ./dist/bin/dydl.js",
-    "postbuild": "npm version patch --no-commit-hooks --no-git-tag-version",
-    "publish": "npm publish"
+    "postbuild": "npm version patch --no-commit-hooks --no-git-tag-version"
   },
   "files": [
     "dist",

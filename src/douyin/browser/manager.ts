@@ -4,7 +4,7 @@ import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { Browser, Page, PuppeteerLaunchOptions, CookieParam } from 'puppeteer';
 import { utilsLogger as logger } from '../../utils/logger'; // 確保路徑正確
-import envPaths from 'env-paths'; // 匯入 env-paths
+// import envPaths from 'env-paths'; // 改為動態匯入
 import path from 'path'; // 匯入 path 模組
 import fs from 'fs'; // 匯入 fs 模組
 
@@ -17,21 +17,29 @@ if (!puppeteer.plugins.find((p: any) => p.name === 'stealth')) {
 }
 
 
-// --- 預設 User Data Directory ---
-// 定義應用程式名稱
+// --- 預設 User Data Directory (使用動態匯入初始化) ---
 const APP_NAME = 'douyin-downloader';
-// 獲取標準路徑
-const paths = envPaths(APP_NAME, { suffix: '' }); // suffix: '' 避免額外的 'nodejs' 路徑
-// 建立 Puppeteer 專用的資料目錄路徑
-const puppeteerUserDataPath = path.join(paths.data, 'puppeteer');
-// 確保目錄存在
-try {
-    fs.mkdirSync(puppeteerUserDataPath, { recursive: true });
-    logger.debug(`預設 Puppeteer User Data Directory 設定為: ${puppeteerUserDataPath}`);
-} catch (error) {
-    logger.error(`無法創建預設 Puppeteer User Data Directory (${puppeteerUserDataPath}):`, error);
-    // 如果無法創建，則不設定預設值，讓 Puppeteer 使用其內部預設
-}
+let puppeteerUserDataPath: string | undefined;
+
+// 使用 async IIFE 初始化路徑
+(async () => {
+    try {
+        // 動態匯入 env-paths
+        const { default: envPaths } = await import('env-paths');
+        // 獲取標準路徑
+        const paths = envPaths(APP_NAME, { suffix: '' }); // suffix: '' 避免額外的 'nodejs' 路徑
+        // 建立 Puppeteer 專用的資料目錄路徑
+        const calculatedPath = path.join(paths.data, 'puppeteer');
+        // 確保目錄存在
+        await fs.promises.mkdir(calculatedPath, { recursive: true }); // 使用異步 mkdir
+        puppeteerUserDataPath = calculatedPath; // 賦值給外部變數
+        logger.debug(`預設 Puppeteer User Data Directory 設定為: ${puppeteerUserDataPath}`);
+    } catch (error) {
+        logger.error(`無法創建或設定預設 Puppeteer User Data Directory:`, error);
+        // 如果無法創建，puppeteerUserDataPath 將保持 undefined
+        // Puppeteer 會使用其內部預設
+    }
+})();
 // ---
 
 /**
@@ -110,7 +118,10 @@ export async function launchBrowser(options: LaunchOptions = {}): Promise<Browse
         headless: headlessOption,
         executablePath: options.executablePath,
         // 優先使用選項中提供的 userDataDir，否則使用 env-paths 計算出的預設路徑 (如果成功創建)
-        userDataDir: options.userDataDir ?? (fs.existsSync(puppeteerUserDataPath) ? puppeteerUserDataPath : undefined),
+        // 優先使用選項中提供的 userDataDir，否則使用計算出的預設路徑 (如果成功創建)
+        // 注意: puppeteerUserDataPath 的初始化是非同步的，但在典型應用中，launchBrowser 通常會在 IIFE 完成後被調用。
+        // 添加一個檢查以防萬一，但主要依賴於 IIFE 的執行。
+        userDataDir: options.userDataDir ?? puppeteerUserDataPath,
         args: [...defaultArgs, ...(options.args || [])], // Combine default and custom args
         defaultViewport: { width: 1920, height: 1080 }, // Keep null when using window-size arg
         timeout: options.timeout || 60000,
