@@ -1,0 +1,92 @@
+examples/
+reference/
+bin/
+test/
+src/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory
+coverage
+*.lcov
+.nyc_output
+
+# Build artifacts not meant for publishing
+build/Release
+*.tsbuildinfo
+
+# Dependency directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# Caches
+.npm
+.eslintcache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.cache
+.parcel-cache
+.next
+.nuxt
+.vuepress/dist
+
+# Config/Dev files
+.grunt
+.lock-wscript
+bower_components
+.yarn-integrity
+.env*
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+.vscode-test
+.yarn/
+.pnp.*
+tsconfig.json
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+*.tgz
+
+# Source and Example Files
+src/
+examples/
+reference/
+bin/
+test/
+tests/
+spec/
+
+# Misc
+.DS_Store
+*.iml
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+cookie.txt
+README.md
+SPEC.md
+.gitignore

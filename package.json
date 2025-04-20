@@ -1,0 +1,61 @@
+{
+  "name": "douyin-downloader",
+  "version": "0.1.0",
+  "description": "抖音影片解析與下載套件",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "dydl": "dist/bin/dydl.js"
+  },
+  "scripts": {
+    "build": "tsc && chmod +x ./dist/bin/dydl.js",
+    "prepublishOnly": "npm run test && npm run build",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "start": "node dist/bin/dydl.js"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "douyin",
+    "video",
+    "downloader",
+    "parser",
+    "抖音",
+    "影片",
+    "下載",
+    "解析"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gkctou/douyin-downloader.git"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.14.0",
+    "eslint": "^8.57.1",
+    "jest": "^29.7.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@supercharge/promise-pool": "^3.2.0",
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "env-paths": "^3.0.0",
+    "fs-extra": "^11.3.0",
+    "ora": "^8.2.0",
+    "puppeteer": "^22.15.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "sanitize-filename": "^1.6.3"
+  }
+}
