@@ -26,68 +26,68 @@ npm install -g douyin-downloader
 或者，如果您不想全域安裝，可以使用 `npx`:
 
 ```bash
-npx dy-dl <命令> [選項]
+npx dydl <命令> [選項]
 ```
 
 ## 🛠️ 使用說明
 
-`douyin-downloader` 提供了一個名為 `dy-dl` 的命令列介面。
+`douyin-downloader` 提供了一個名為 `dydl` 的命令列介面。
 
 ### 基本命令格式
 
 ```bash
-dy-dl <命令> [選項] [參數]
+dydl <命令> [選項] [參數]
 ```
 
 ### 可用命令
 
 *   **`login`**: 登入抖音帳號並儲存 Cookie。
     ```bash
-    dy-dl login
+    dydl login
     ```
     執行後會開啟瀏覽器顯示 QR Code，請使用抖音 App 掃描登入。Cookie 將儲存於預設路徑。
 
 *   **`check`**: 檢查已儲存的 Cookie 是否有效。
     ```bash
-    dy-dl check
+    dydl check
     ```
 
 *   **`open`**: 開啟一個已載入 Cookie 的瀏覽器實例。
     ```bash
-    dy-dl open
+    dydl open
     ```
 
 *   **`video <影片連結>`**: 下載單個影片。
     ```bash
     # 下載影片到目前目錄
-    dy-dl video https://v.douyin.com/xxxxxxx/
+    dydl video https://v.douyin.com/xxxxxxx/
 
     # 指定下載目錄
-    dy-dl video -d ./downloads https://v.douyin.com/xxxxxxx/
+    dydl video -d ./downloads https://v.douyin.com/xxxxxxx/
 
     # 指定下載目錄和檔案名稱 (注意: -f 僅適用於單個影片下載)
-    dy-dl video -d ./downloads -f my_video.mp4 https://v.douyin.com/xxxxxxx/
+    dydl video -d ./downloads -f my_video.mp4 https://v.douyin.com/xxxxxxx/
     ```
 
 *   **`info <影片連結>`**: 獲取影片資訊。
     ```bash
     # 輸出資訊到控制台
-    dy-dl info https://v.douyin.com/xxxxxxx/
+    dydl info https://v.douyin.com/xxxxxxx/
 
     # 輸出資訊到 JSON 檔案
-    dy-dl info -f video_info.json https://v.douyin.com/xxxxxxx/
+    dydl info -f video_info.json https://v.douyin.com/xxxxxxx/
     ```
 
 *   **`list <用戶主頁連結>`**: 獲取用戶影片列表。
     ```bash
     # 獲取用戶所有影片列表並輸出到控制台
-    dy-dl list https://www.douyin.com/user/MS4wLjABAAAAxxxxxxxxxxxxxxxx
+    dydl list https://www.douyin.com/user/MS4wLjABAAAAxxxxxxxxxxxxxxxx
 
     # 獲取用戶最新的 10 個影片列表
-    dy-dl list -n 10 https://www.douyin.com/user/MS4wLjABAAAAxxxxxxxxxxxxxxxx
+    dydl list -n 10 https://www.douyin.com/user/MS4wLjABAAAAxxxxxxxxxxxxxxxx
 
     # 獲取用戶影片列表並輸出到 JSON 檔案
-    dy-dl list -f user_videos.json https://www.douyin.com/user/MS4wLjABAAAAxxxxxxxxxxxxxxxx
+    dydl list -f user_videos.json https://www.douyin.com/user/MS4wLjABAAAAxxxxxxxxxxxxxxxx
     ```
 
 ### 全局選項
@@ -97,7 +97,7 @@ dy-dl <命令> [選項] [參數]
 
 ## 🔑 身份驗證 (Cookie)
 
-部分功能 (如下載某些受限影片或獲取完整的用戶列表) 可能需要登入狀態。使用 `dy-dl login` 命令登入後，Cookie 會被儲存。工具在執行需要驗證的操作時會自動載入儲存的 Cookie。您可以使用 `dy-dl check` 來確認 Cookie 的有效性。
+部分功能 (如下載某些受限影片或獲取完整的用戶列表) 可能需要登入狀態。使用 `dydl login` 命令登入後，Cookie 會被儲存。工具在執行需要驗證的操作時會自動載入儲存的 Cookie。您可以使用 `dydl check` 來確認 Cookie 的有效性。
 
 Cookie 預設儲存路徑會根據您的作業系統而有所不同 (通常在用戶設定或應用程式資料目錄下)。
 
