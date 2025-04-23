@@ -30,7 +30,7 @@ export const DOUYIN_LINK_PATTERNS: LinkPattern[] = [
   {
     name: 'short',
     // 短連結，例如: https://v.douyin.com/abc123/ 或 https://v.douyin.com/c-mY7xDr-qA/
-    pattern: /https?:\/\/v\.douyin\.com\/([a-zA-Z0-9-]+)\/?/,
+    pattern: /https?:\/\/v\.douyin\.com\/([a-zA-Z0-9_-]+)\/?/,
     needsRedirect: true
   },
   {
